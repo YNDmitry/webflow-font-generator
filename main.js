@@ -7,7 +7,6 @@ const fonts = []
 async function loadFonts() {
   fonts.length = 0
   $('#app').empty()
-  console.log(fonts)
   const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=${filter}&key=${apiKey}`)
 
   const data = await response.json()
