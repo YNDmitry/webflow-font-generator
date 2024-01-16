@@ -1,24 +1,28 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const input = document.querySelector('input[name]')
+const apiKey = 'AIzaSyBUYZdUW5wM6KfJOnn9K-TK7pDhJOY4Igc'
+const app = document.getElementById('#app')
+let filter = $('select[name="sort"] option').eq(0).val()
+const fonts = []
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+async function loadFonts() {
+  fonts.length = 0
+  $('#app').empty()
+  console.log(fonts)
+  const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=${filter}&key=${apiKey}`)
 
-setupCounter(document.querySelector('#counter'))
+  const data = await response.json()
+
+  if (data) {
+    fonts.push(...data.items)
+    fonts.forEach(font => {
+      $('#app').append(`<div style="font-size: 2rem;line-height:120%;">${font.family}</div>`)
+    })
+  }
+}
+
+loadFonts()
+
+$('select[name="sort"]').change((e) => {
+  filter = e.target.value
+  loadFonts()
+})

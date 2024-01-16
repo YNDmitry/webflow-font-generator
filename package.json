@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "publish": ""
+    "publish": "/Users/macbookprom1/WebstormProjects/webflow-publish/build/webflow-publish/publish"
   },
   "devDependencies": {
     "vite": "^5.0.8"
